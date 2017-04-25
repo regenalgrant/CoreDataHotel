@@ -24,7 +24,7 @@
 - (void)loadView
 {
     [super loadView];
-    self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds
+    self.tableView            = [[UITableView alloc]initWithFrame:self.view.bounds
                                                  style:UITableViewStylePlain];
     [self.view addSubview:self.tableView];
 

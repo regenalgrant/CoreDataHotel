@@ -14,15 +14,15 @@
                                      toView:(UIView *)superView
                               withAttribute:(NSLayoutAttribute)attribute
                               andMultiplier:(CGFloat)multiplier{
-    NSLayoutConstraint *constraints = [NSLayoutConstraint constraintWithItem:view
+    NSLayoutConstraint *constraints      = [NSLayoutConstraint constraintWithItem:view
                                                                    attribute:attribute
                                                                    relatedBy:NSLayoutRelationEqual
                                                                       toItem:superView
                                                                    attribute:attribute
                                                                   multiplier:multiplier
                                                                     constant:0.0];
-    constraints.active =YES;
-    
+    constraints.active                   = YES;
+
     return constraints;
 }
 
@@ -34,34 +34,34 @@
 }
 
 +(NSArray *)fullScreenContraintsWithVFLForView:(UIView *)view{
-    NSMutableArray *constraints = [[NSMutableArray alloc]init];
-    
-    NSDictionary *viewDictionary = @{@"view": view};
-    
-    NSArray *horizontalContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
+    NSMutableArray *constraints          = [[NSMutableArray alloc]init];
+
+    NSDictionary *viewDictionary         = @{@"view": view};
+
+    NSArray *horizontalContraints        = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|"
                                                                             options:0
                                                                             metrics:nil
                                                                               views:viewDictionary];
-    
-    NSArray *verticalContraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
+
+    NSArray *verticalContraints          = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|"
                                                                           options:0
                                                                           metrics:nil
                                                                             views:viewDictionary];
-    
+
     [constraints addObjectsFromArray:horizontalContraints];
     [constraints addObjectsFromArray:verticalContraints];
-    
+
     [NSLayoutConstraint activateConstraints:constraints];
-    
+
     return constraints.copy;
 }
 
 +(NSLayoutConstraint *)equalHeightConstraintFrom:(UIView *)view
                                           toView:(UIView *)otherView
                                   withMultiplier:(CGFloat)multiplier{
-    
+
     NSLayoutConstraint *heightConstraint = [AutoLayout genericContraintFrom:view toView:otherView withAttribute:NSLayoutAttributeHeight andMultiplier:multiplier];
-    
+
     return heightConstraint;
 }
 
