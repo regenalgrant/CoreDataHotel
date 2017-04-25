@@ -61,7 +61,7 @@
         }
         hotels = jsonDictionary[@"Hotels"];
         for (NSDictionary *hotel in hotels) {
-            Hotel *newHotel = [NSEntityDescription insertNewObjectForEntityForName:@"Hotel" inManagedObjectContext:
+            Hotel *newHotel = [NSEntityDescription insertNewObjectForEntityForName:@"Hotels" inManagedObjectContext:
                                self.persistentContainer.viewContext];
             
             newHotel.name = hotel[@"name"];
