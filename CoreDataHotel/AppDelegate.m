@@ -8,7 +8,18 @@
 
 #import "AppDelegate.h"
 
+#import "ViewController.h"
+
+#import "Hotel+CoreDataProperties.h"
+#import "Room+CoreDataClass.h"
+#import "Hotel+CoreDataProperties.h"
+#import "Hotel+CoreDataClass.h"
+
+
 @interface AppDelegate ()
+
+@property (strong, nonatomic) UINavigationController *navController;
+@property (strong, nonatomic) ViewController *viewController;
 
 @end
 
@@ -17,9 +28,83 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [self setupRootViewController];
+    [self bootstrapApp];
+    
     return YES;
 }
 
+-(void)bootstrapApp
+{
+    
+    NSFetchRequest *request      = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
+    NSError *error;
+    NSInteger count              = [self.persistentContainer.viewContext countForFetchRequest:request error:&error];
+    
+    if(error){
+        NSLog(@"%@", error.localizedDescription);
+}
+    if(count == 0)
+{
+        
+        NSDictionary *hotels         = [[NSDictionary alloc]init];
+        NSDictionary *rooms          = [[NSDictionary alloc]init];
+        
+        NSString *path               = [[NSBundle mainBundle]pathForResource:@"Hotels" ofType:@"json"];
+        NSData *jsonData             = [NSData dataWithContentsOfFile:path];
+        
+        NSError *jsonError;
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&jsonError];
+        
+        
+        if (jsonError)
+{
+            NSLog(@"%@", jsonError.localizedDescription);
+}
+        hotels                       = jsonDictionary[@"Hotels"];
+        for (NSDictionary *hotel in hotels)
+{
+            Hotel *newHotel              = [NSEntityDescription insertNewObjectForEntityForName:@"Hotel" inManagedObjectContext:
+                                            self.persistentContainer.viewContext];
+            
+            newHotel.name                = hotel[@"name"];
+            newHotel.location            = hotel[@"location"];
+            newHotel.star                = (NSInteger)hotel[@"stars"];
+            
+            for (NSDictionary *room in hotel[@"rooms"]){
+                Room *newRoom                = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.persistentContainer.viewContext];
+                
+                newRoom.number               = [(NSNumber *)room[@"number"]intValue];
+                newRoom.beds                 = [(NSNumber *)room[@"beds"] intValue];
+                newRoom.rate                 = [(NSNumber *)room[@"rate"] floatValue];
+                newRoom.hotel                = newHotel;
+}
+}
+        NSError *saveError;
+        [self.persistentContainer.viewContext save:&saveError];
+        if(saveError){
+            NSLog(@"There was an error saving to core data");
+        } else
+        {
+            NSLog(@"successfully saved to Core data");
+}
+        
+}
+}
+
+
+
+-(void)setupRootViewController {
+    //[UIScreen mainScreen a singleton]//
+    self.window                    = [[UIWindow alloc]initWithFrame: [[UIScreen mainScreen]bounds]];
+    self.viewController            = [[ViewController alloc]init];
+    self.navController             = [[UINavigationController alloc]initWithRootViewController: self.viewController];
+    self.window.rootViewController = self.navController;
+    [self.window makeKeyAndVisible];
+    
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -71,7 +156,7 @@
                      * The device is out of space.
                      * The store could not be migrated to the current model version.
                      Check the error message to determine what the actual problem was.
-                    */
+                     */
                     NSLog(@"Unresolved error %@, %@", error, error.userInfo);
                     abort();
                 }
