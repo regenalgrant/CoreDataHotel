@@ -17,6 +17,7 @@
 		99DA8C3C1EAE960D0074D7E4 /* Hotels.json in Resources */ = {isa = PBXBuildFile; fileRef = 99DA8C3B1EAE960D0074D7E4 /* Hotels.json */; };
 		99DA8C421EAEB4F90074D7E4 /* HotelsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DA8C411EAEB4F90074D7E4 /* HotelsViewController.m */; };
 		99DA8C461EAF04C30074D7E4 /* RoomsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DA8C451EAF04C30074D7E4 /* RoomsViewController.m */; };
+		99DA8C491EAFBC780074D7E4 /* DatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DA8C481EAFBC780074D7E4 /* DatePickerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		99DA8C411EAEB4F90074D7E4 /* HotelsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelsViewController.m; sourceTree = "<group>"; };
 		99DA8C441EAF04C30074D7E4 /* RoomsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoomsViewController.h; sourceTree = "<group>"; };
 		99DA8C451EAF04C30074D7E4 /* RoomsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoomsViewController.m; sourceTree = "<group>"; };
+		99DA8C471EAFBC780074D7E4 /* DatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerViewController.h; sourceTree = "<group>"; };
+		99DA8C481EAFBC780074D7E4 /* DatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 				99DA8C451EAF04C30074D7E4 /* RoomsViewController.m */,
 				99DA8C231EAE5F6E0074D7E4 /* ViewController.h */,
 				99DA8C241EAE5F6E0074D7E4 /* ViewController.m */,
+				99DA8C471EAFBC780074D7E4 /* DatePickerViewController.h */,
+				99DA8C481EAFBC780074D7E4 /* DatePickerViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99DA8C491EAFBC780074D7E4 /* DatePickerViewController.m in Sources */,
 				99DA8C251EAE5F6E0074D7E4 /* ViewController.m in Sources */,
 				99DA8C2B1EAE5F6E0074D7E4 /* CoreDataHotel.xcdatamodeld in Sources */,
 				99DA8C221EAE5F6E0074D7E4 /* AppDelegate.m in Sources */,
@@ -344,6 +350,7 @@
 				99DA8C361EAE5F6E0074D7E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

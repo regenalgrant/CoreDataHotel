@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "AutoLayout.h"
 #import "HotelsViewController.h"
+#import "DatePickerViewController.h"
 
 
 @interface ViewController ()
@@ -26,7 +27,8 @@
 
 }
 
--(void)setUpLayout{
+-(void)setUpLayout
+{
 
     UIButton *browseButton           = [self createButtonWithTitle:@"Browse"];
     UIButton *bookButton             = [self createButtonWithTitle:@"Book"];
@@ -42,16 +44,27 @@
 
 
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-
+    
+    [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
 }
--(void)browseButtonSelected{
+-(void)browseButtonSelected
+{
     HotelsViewController *hotelVC    = [[HotelsViewController alloc]init];
     [self.navigationController pushViewController:hotelVC animated:YES];
     //    NSLog(@"Work on this for lab!");
-
-
+    
 }
--(UIButton *)createButtonWithTitle:(NSString *)title{
+-(void)bookButtonSelected
+{
+    DatePickerViewController *datePickerController = [[DatePickerViewController alloc] init];
+    
+    [self.navigationController pushViewController:datePickerController animated:YES];
+}
+    
+    
+    
+-(UIButton *)createButtonWithTitle:(NSString *)title
+{
     UIButton *button                 = [[UIButton alloc]init];
 
     [button setTitle:title forState:UIControlStateNormal];
@@ -69,13 +82,15 @@
 
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
