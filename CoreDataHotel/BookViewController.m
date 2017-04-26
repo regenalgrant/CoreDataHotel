@@ -7,42 +7,81 @@
 //
 
 #import "BookViewController.h"
+#import "AppDelegate.h"
+#import "Reservation+CoreDataClass.h"
+#import "Reservation+CoreDataProperties.h"
+#import "CoreDataHotel+CoreDataModel.h"
+#import "Guest+CoreDataClass.h"
+#import "Guest+CoreDataProperties.h"
+#import "AutoLayout.h"
+
+
 
 @interface BookViewController ()
-
+@property(strong, nonatomic) UITextField   *nameField;
 @end
 
 @implementation BookViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
--(void)saveButtonSelected:(UIBarButtonItem *)sender {
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication]delegate];
-    NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
-    
-    Reservation *reservation = [NSEntityDesciption insertNewObjectForEntityForName:@"Reservation" inMangagedObjectiveContext:context];
-    reservation:startDate    = [NSData date];
-    reservation:endDate      = self.endDate;
-    reservation.room         = self.room;
-    
-    self.room.resevation reservation;
+-(void)setNameField
+{
+    self.nameField                                           = [[UITextField alloc] init];
+    self.nameField.placeholder                               = @"Please Enter Your Name...";
+    self.nameField.translatesAutoresizingMaskIntoConstraints = NO;
 
-    reservation.guest      = [nsEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
-    reservation.guest.name = self.nameField.text;
+    [self.view addSubview:self.nameField];
+
+    CGFloat navAndStatusBarHeight                            = CGRectGetHeight(self.navigationController.navigationBar.frame) + 20.0;
+
+    NSLayoutConstraint *top                                  = [AutoLayout genericContraintFrom:self.nameField
+                                                                                    toView:self.view
+                                                                             withAttribute: NSLayoutAttributeTop];
+
+    top.constant                                             = navAndStatusBarHeight + 20;
+
+    NSLayoutConstraint *leading                              = [AutoLayout leadingConstraintFrom:self.nameField
+                                                                                     toView:self.view];
+    leading.constant                                         = 20;
+
+    NSLayoutConstraint *trailing                             = [AutoLayout trailingConstraintFrom:self.nameField
+                                                                                      toView:self.view];
+    trailing.constant                                        = -20;
+
+    [self.nameField becomeFirstResponder];
+}
+
+
+-(void)saveButtonSelected:(UIBarButtonItem *)sender
+{
+    AppDelegate *appDelegate                                 = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context                          = appDelegate.persistentContainer.viewContext;
+
+    Reservation *reservation                                 = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
+    reservation.startDate                                    = self.startDate;
+    reservation.endDate                                      = self.endDate;
+    reservation.room                                         = self.room;
+
+    reservation.guest                                        = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
+    reservation.guest.name                                   = self.nameField.text;
 
     NSError *saveError;
     [context save:&saveError];
-    if (saveError) {
+    if (saveError)
+{
         NSLog(@"Save error is %@", saveError);
-    } else {
+    } else
+{
         NSLog(@"Save Reservation Successfull");
-        
+
         [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    }
 }
+}
+
 
 @end

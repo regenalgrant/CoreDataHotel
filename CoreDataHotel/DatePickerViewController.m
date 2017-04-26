@@ -12,6 +12,7 @@
 @interface DatePickerViewController ()
 
 @property(strong, nonatomic) UIDatePicker *endDate;
+@property(strong, nonatomic) UIDatePicker *startDate;
 
 @end
 
@@ -21,11 +22,13 @@
 -(void)loadView
 {
     [super loadView];
-
+    [self setupDoneButton];
     [self setupDatePickers];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 
 }
+
+
 -(void)setupDoneButton
 {
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone
@@ -35,38 +38,44 @@
     [self.navigationItem setRightBarButtonItem:doneButton];
 }
 
+
 -(void)doneButtonPressed
 {
     NSDate *startDate = self.startDate.date;
     NSDate *endDate   = self.endDate.date;
-    //check date is correct//
-    if ([[NSDate date] timeIntervalSinceReferenceDate] > [endDate timeIntervalSinceReferenceDate])
+
+    if ([[NSDate date] timeIntervalSinceReferenceDate] > [endDate timeIntervalSinceReferenceDate]){
     self.endDate.date = [NSDate date];
     return;
-}
+    
+    }
 AvailabilityViewController *availabilityController = [[AvailabilityViewController alloc] init];
-availabilityController.endDate = endDate;
-availabilityController.startDate = startDate;
+availabilityController.endDate                     = endDate;
 [self.navigationController pushViewController:availabilityController animated: YES];
 
-
-- (void)viewDidLoad
+if ([[NSDate date] timeIntervalSinceReferenceDate] > [startDate timeIntervalSinceReferenceDate])
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+self.startDate.date                                = [NSDate date];
 }
+}
+
 
 -(void)setupDatePickers
 {
     self.endDate                = [[UIDatePicker alloc]init];
     self.endDate.datePickerMode = UIDatePickerModeDate;
-
     self.endDate.frame          = CGRectMake(0, 84.0, self.view.frame.size.width, 200.0);
     
     [self.view addSubview:self.endDate];
-
+    
 }
+//check date is correct//
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+
 
 @end
 

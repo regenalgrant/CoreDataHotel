@@ -60,7 +60,6 @@
 
 
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
-    
     [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
 }
 -(void)browseButtonSelected
@@ -82,11 +81,9 @@
 -(UIButton *)createButtonWithTitle:(NSString *)title
 {
     UIButton *button                 = [[UIButton alloc]init];
-
+    
     [button setTitle:title forState:UIControlStateNormal];
-
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
 
     [self.view addSubview:button];

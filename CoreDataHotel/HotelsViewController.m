@@ -98,9 +98,9 @@
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
     if ([keyPath isEqualToString:@"Rooms"])
-    {
+{
         [self.tableView reloadData];
-    }
+}
 }
 
 
