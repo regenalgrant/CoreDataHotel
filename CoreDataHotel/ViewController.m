@@ -29,17 +29,33 @@
 
 -(void)setUpLayout
 {
-
+    CGFloat topLayoutHeight = CGRectGetHeight(self.navigationController.navigationBar.frame) + 20;
+    CGFloat buttonHeight = (self.view.bounds.size.height - topLayoutHeight) / 3;
+    
     UIButton *browseButton           = [self createButtonWithTitle:@"Browse"];
     UIButton *bookButton             = [self createButtonWithTitle:@"Book"];
     UIButton *lookupButton           = [self createButtonWithTitle:@"Look Up"];
-
-    browseButton.backgroundColor     = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
+    
+    bookButton.backgroundColor   = [UIColor redColor];
+    browseButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
+    lookupButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
 
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
+    [AutoLayout height:buttonHeight forView:browseButton];
+    [AutoLayout topOffset:topLayoutHeight fromView:browseButton toView:self.view];
+    
+    [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
+    [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
+    [AutoLayout height:buttonHeight forView:bookButton];
+    [AutoLayout topOffset:topLayoutHeight + buttonHeight fromView:bookButton toView:self.view];
+    
+    [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
+    [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
+    [AutoLayout height:buttonHeight forView:lookUpButton];
+    [AutoLayout topOffset:topLayoutHeight + buttonHeight fromView:lookUpButton toView:self.view];
 
-    NSLayoutConstraint *browseHeight = [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.33];
+    //NSLayoutConstraint *browseHeight = [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.33];
 
 
 

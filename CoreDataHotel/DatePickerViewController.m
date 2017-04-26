@@ -7,6 +7,7 @@
 //
 
 #import "DatePickerViewController.h"
+#import "AvailabilityViewController.h"
 
 @interface DatePickerViewController ()
 
@@ -37,17 +38,21 @@
 -(void)doneButtonPressed
 {
     NSDate *endDate   = self.endDate.date;
-
+    //check date is correct//
     if ([[NSDate date] timeIntervalSinceReferenceDate] > [endDate timeIntervalSinceReferenceDate])
     self.endDate.date = [NSDate date];
     return;
 }
+AvailabilityViewController *availabilityController = [[AvailabilityViewController alloc] init];
+AvailabilityViewController.endDate = endDate;
+[self.navigationController pushViewController:availabilityController animated: YES];
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 }
 
 -(void)setupDatePickers
