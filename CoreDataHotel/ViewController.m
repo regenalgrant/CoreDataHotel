@@ -38,7 +38,7 @@
     
     bookButton.backgroundColor   = [UIColor redColor];
     browseButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
-    lookupButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
+    lookupButton.backgroundColor = [UIColor colorWithRed:1.0 green:3.0 blue:0.75 alpha:1.0];
 
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];

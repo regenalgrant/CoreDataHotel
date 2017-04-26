@@ -31,9 +31,12 @@
 +(NSLayoutConstraint *)trailingConstraintFrom:(UIView *)view
                                        toView:(UIView *)otherView;
 
-+(NSLayoutConstraint *)height:(CGFloat)height forView:(UIView *)view;
++(NSLayoutConstraint *)height:(CGFloat)height
+forView:(UIView *)view;
 
-+(NSLayoutConstraint *)topOffset:(CGFloat)offset fromView:(UIView *)view toView:(UIView *)otherView;
++(NSLayoutConstraint *)topOffset:(CGFloat)offset
+                        fromView:(UIView *)view
+                          toView:(UIView *)otherView;
 
 
 @end

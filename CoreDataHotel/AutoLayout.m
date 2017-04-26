@@ -13,7 +13,9 @@
 +(NSLayoutConstraint *)genericContraintFrom:(UIView *)view
                                      toView:(UIView *)superView
                               withAttribute:(NSLayoutAttribute)attribute
-                              andMultiplier:(CGFloat)multiplier{
+                              andMultiplier:(CGFloat)multiplier
+{
+
     NSLayoutConstraint *constraints      = [NSLayoutConstraint constraintWithItem:view
                                                                         attribute:attribute
                                                                         relatedBy:NSLayoutRelationEqual
@@ -29,8 +31,44 @@
 +(NSLayoutConstraint *)genericContraintFrom:(UIView *)view
                                      toView:(UIView *)superView
                               withAttribute:(NSLayoutAttribute)attribute{
-    return [AutoLayout genericContraintFrom:view toView:superView withAttribute:attribute andMultiplier:1.0];
 
+    return [AutoLayout genericContraintFrom:view
+                                     toView:superView
+                              withAttribute:attribute
+                              andMultiplier:1.0];
+
+}
+
++(NSLayoutConstraint *)height:(CGFloat)height
+                      forView:(UIView *)view
+{
+    NSLayoutConstraint *constraints      = [NSLayoutConstraint constraintWithItem:view
+                                                                        attribute:NSLayoutAttributeHeight
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:nil
+                                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                                       multiplier:1.0
+                                                                         constant:height];
+    constraints.active                   = YES;
+
+    return constraints;
+}
+
+
++(NSLayoutConstraint *)topOffset:(CGFloat)offset
+                        fromView:(UIView *)view
+                          toView:(UIView *)otherView;
+{
+    NSLayoutConstraint *constraints      = [NSLayoutConstraint constraintWithItem:view
+                                                                   attribute:NSLayoutAttributeTop
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:otherView
+                                                                   attribute:NSLayoutAttributeTop
+                                                                  multiplier:1.0
+                                                                    constant:offset];
+    constraints.active                   = YES;
+
+    return constraints;
 }
 
 +(NSArray *)fullScreenContraintsWithVFLForView:(UIView *)view{
@@ -59,8 +97,11 @@
 +(NSLayoutConstraint *)equalHeightConstraintFrom:(UIView *)view
                                           toView:(UIView *)otherView
                                   withMultiplier:(CGFloat)multiplier{
-
-    NSLayoutConstraint *heightConstraint = [AutoLayout genericContraintFrom:view toView:otherView withAttribute:NSLayoutAttributeHeight andMultiplier:multiplier];
+    
+    NSLayoutConstraint *heightConstraint = [AutoLayout genericContraintFrom:view
+                                                                     toView:otherView
+                                                              withAttribute:NSLayoutAttributeHeight
+                                                              andMultiplier:multiplier];
 
     return heightConstraint;
 }
