@@ -52,8 +52,8 @@
     
     [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
     [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
-    [AutoLayout height:buttonHeight forView:lookUpButton];
-    [AutoLayout topOffset:topLayoutHeight + buttonHeight fromView:lookUpButton toView:self.view];
+    [AutoLayout height:buttonHeight forView:lookupButton];
+    [AutoLayout topOffset:topLayoutHeight + buttonHeight fromView:lookupButton toView:self.view];
 
     //NSLayoutConstraint *browseHeight = [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.33];
 

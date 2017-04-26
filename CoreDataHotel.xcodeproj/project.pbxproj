@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99AFF0F61EB0FFB7008F9AEB /* BookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99AFF0F51EB0FFB7008F9AEB /* BookViewController.m */; };
 		99DA8C1F1EAE5F6E0074D7E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DA8C1E1EAE5F6E0074D7E4 /* main.m */; };
 		99DA8C221EAE5F6E0074D7E4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DA8C211EAE5F6E0074D7E4 /* AppDelegate.m */; };
 		99DA8C251EAE5F6E0074D7E4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99DA8C241EAE5F6E0074D7E4 /* ViewController.m */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		99AFF0F41EB0FFB7008F9AEB /* BookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookViewController.h; sourceTree = "<group>"; };
+		99AFF0F51EB0FFB7008F9AEB /* BookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookViewController.m; sourceTree = "<group>"; };
 		99DA8C1A1EAE5F6E0074D7E4 /* CoreDataHotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataHotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99DA8C1E1EAE5F6E0074D7E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		99DA8C201EAE5F6E0074D7E4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 				99DA8C481EAFBC780074D7E4 /* DatePickerViewController.m */,
 				99DA8C4A1EAFCF980074D7E4 /* AvailabilityViewController.h */,
 				99DA8C4B1EAFCF980074D7E4 /* AvailabilityViewController.m */,
+				99AFF0F41EB0FFB7008F9AEB /* BookViewController.h */,
+				99AFF0F51EB0FFB7008F9AEB /* BookViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				99DA8C2B1EAE5F6E0074D7E4 /* CoreDataHotel.xcdatamodeld in Sources */,
 				99DA8C221EAE5F6E0074D7E4 /* AppDelegate.m in Sources */,
 				99DA8C4C1EAFCF980074D7E4 /* AvailabilityViewController.m in Sources */,
+				99AFF0F61EB0FFB7008F9AEB /* BookViewController.m in Sources */,
 				99DA8C421EAEB4F90074D7E4 /* HotelsViewController.m in Sources */,
 				99DA8C461EAF04C30074D7E4 /* RoomsViewController.m in Sources */,
 				99DA8C1F1EAE5F6E0074D7E4 /* main.m in Sources */,

@@ -37,6 +37,7 @@
 
 -(void)doneButtonPressed
 {
+    NSDate *startDate = self.startDate.date;
     NSDate *endDate   = self.endDate.date;
     //check date is correct//
     if ([[NSDate date] timeIntervalSinceReferenceDate] > [endDate timeIntervalSinceReferenceDate])
@@ -44,7 +45,8 @@
     return;
 }
 AvailabilityViewController *availabilityController = [[AvailabilityViewController alloc] init];
-AvailabilityViewController.endDate = endDate;
+availabilityController.endDate = endDate;
+availabilityController.startDate = startDate;
 [self.navigationController pushViewController:availabilityController animated: YES];
 
 

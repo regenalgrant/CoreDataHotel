@@ -54,20 +54,20 @@
 -(NSArray *)allHotels
 {
     if (!_allHotels)
-    {
+{
         AppDelegate *appDelegate        = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-        
+
         NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
         NSFetchRequest *request         = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
         NSError *fetchError;
         NSArray *hotels                 = [context executeFetchRequest: request error:&fetchError];
-        
+
         if (fetchError) {
             NSLog(@"There was an error fetching hotels from Core Data!");
-            
-        }
+
+}
         _allHotels                      = hotels;
-    }
+}
     return _allHotels;
     
 }

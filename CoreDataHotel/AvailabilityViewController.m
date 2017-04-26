@@ -41,10 +41,12 @@
                                                                                   error:&roomError];
     
     NSMutableArray *unavailableRooms = [[NSMutableArray alloc] init];
+    
     for(Reservation *reservation in results) {
         [unavailableRooms addObject:reservation.room];
         
     }
+    
     NSFetchRequest *roomRequest = [NSFetchRequest fetchRequestWithEntityName:@"Room"];
     roomRequest.predicate = [NSPredicate predicateWithFormat:@"NOT self IN %@", unavailableRooms];
     
@@ -89,13 +91,15 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    
-    Room *currentRoom = self.availableRooms[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%i", currentRoom.number];
+
+    Room *currentRoom     = self.availableRooms[indexPath.row];
+    //cell.textLabel.text   = [NSString stringWithFormat:@"%i", currentRoom.number];
+    cell.textLabel.text = [NSString stringWithFormat:@"Room: %i (%i beds, $%0.2f per night)", currentRoom.number,
+                          currentRoom.beds, currentRoom.rate];
     return cell;
 }
 
-
+//-(void)tableView:(UITableView *)tableView
 
 
 
