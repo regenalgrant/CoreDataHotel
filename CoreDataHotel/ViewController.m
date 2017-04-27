@@ -37,35 +37,57 @@
     UIButton *lookupButton           = [self createButtonWithTitle:@"Look Up"];
     
     bookButton.backgroundColor   = [UIColor redColor];
-    browseButton.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
-    lookupButton.backgroundColor = [UIColor colorWithRed:1.0 green:3.0 blue:0.75 alpha:1.0];
+    browseButton.backgroundColor = [UIColor blueColor];
+    lookupButton.backgroundColor = [UIColor yellowColor];
 
     [AutoLayout leadingConstraintFrom:browseButton toView:self.view];
     [AutoLayout trailingConstraintFrom:browseButton toView:self.view];
-    [AutoLayout height:buttonHeight forView:browseButton];
-    [AutoLayout topOffset:topLayoutHeight fromView:browseButton toView:self.view];
+    [AutoLayout equalHeightConstraintFrom:browseButton toView:bookButton withMultiplier:1.0];
+    [AutoLayout genericContraintFrom:browseButton
+                       withAttribute:NSLayoutAttributeTop
+                              toView:self.topLayoutGuide
+                       withAttribute:NSLayoutAttributeBottom
+                       andMultiplier:1.0];
+    
+    [AutoLayout genericContraintFrom:browseButton
+                       withAttribute:NSLayoutAttributeBottom
+                              toView:bookButton
+                       withAttribute:NSLayoutAttributeTop
+                       andMultiplier:1.0];
+    
     
     [AutoLayout leadingConstraintFrom:bookButton toView:self.view];
     [AutoLayout trailingConstraintFrom:bookButton toView:self.view];
-    [AutoLayout height:buttonHeight forView:bookButton];
-    [AutoLayout topOffset:topLayoutHeight + buttonHeight fromView:bookButton toView:self.view];
+
+    [AutoLayout genericContraintFrom:bookButton
+                       withAttribute:NSLayoutAttributeBottom
+                              toView:lookupButton
+                       withAttribute:NSLayoutAttributeTop
+                       andMultiplier:1.0];
     
     [AutoLayout leadingConstraintFrom:lookupButton toView:self.view];
     [AutoLayout trailingConstraintFrom:lookupButton toView:self.view];
-    [AutoLayout height:buttonHeight forView:lookupButton];
-    [AutoLayout topOffset:topLayoutHeight + buttonHeight fromView:lookupButton toView:self.view];
-
+    [AutoLayout equalHeightConstraintFrom:lookupButton toView:bookButton withMultiplier:1.0];
+    [AutoLayout genericContraintFrom:lookupButton
+                       withAttribute:NSLayoutAttributeBottom
+                              toView:self.view
+                       withAttribute:NSLayoutAttributeBottom
+                       andMultiplier:1.0];
+    
     //NSLayoutConstraint *browseHeight = [AutoLayout equalHeightConstraintFrom:browseButton toView:self.view withMultiplier:0.33];
 
 
 
     [browseButton addTarget:self action:@selector(browseButtonSelected) forControlEvents:UIControlEventTouchUpInside];
     [bookButton addTarget:self action:@selector(bookButtonSelected) forControlEvents:UIControlEventTouchUpInside];
+    [lookupButton addTarget:self action:@selector(lookupButtonSelected) forControlEvents:UIControlEventTouchUpInside];
 }
 -(void)browseButtonSelected
 {
-    HotelsViewController *hotelVC    = [[HotelsViewController alloc]init];
-    [self.navigationController pushViewController:hotelVC animated:YES];
+    HotelsViewController *hotelVC = [[HotelsViewController alloc]init];
+    
+    [self.navigationController pushViewController:hotelVC
+                                         animated:YES];
     //    NSLog(@"Work on this for lab!");
     
 }
@@ -73,11 +95,18 @@
 {
     DatePickerViewController *datePickerController = [[DatePickerViewController alloc] init];
     
-    [self.navigationController pushViewController:datePickerController animated:YES];
+    [self.navigationController pushViewController:datePickerController
+                                         animated:YES];
 }
     
-    
-    
+//-(void)lookupButtonSelected
+//{
+//    DatePickerViewController *datePickerController = [[DatePickerViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:datePickerController
+//                                         animated:YES];
+//}
+
 -(UIButton *)createButtonWithTitle:(NSString *)title
 {
     UIButton *button                 = [[UIButton alloc]init];

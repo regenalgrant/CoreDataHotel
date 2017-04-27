@@ -38,5 +38,10 @@ forView:(UIView *)view;
                         fromView:(UIView *)view
                           toView:(UIView *)otherView;
 
++(NSLayoutConstraint *)genericContraintFrom:(id)view
+                              withAttribute:(NSLayoutAttribute)thisAttribute
+                                     toView:(id)otherView
+                              withAttribute:(NSLayoutAttribute)otherAttribute
+                              andMultiplier:(CGFloat)multiplier;
 
 @end

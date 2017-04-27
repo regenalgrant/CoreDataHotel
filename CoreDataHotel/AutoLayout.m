@@ -117,7 +117,22 @@
 
 }
 
-
++(NSLayoutConstraint *)genericContraintFrom:(id)view
+                              withAttribute:(NSLayoutAttribute)thisAttribute
+                                     toView:(id)otherView
+                              withAttribute:(NSLayoutAttribute)otherAttribute
+                              andMultiplier:(CGFloat)multiplier{
+    NSLayoutConstraint *constraints      = [NSLayoutConstraint constraintWithItem:view
+                                                                        attribute:thisAttribute
+                                                                        relatedBy:NSLayoutRelationEqual
+                                                                           toItem:otherView
+                                                                        attribute:otherAttribute
+                                                                       multiplier:multiplier
+                                                                         constant:0.0];
+    constraints.active                   = YES;
+    
+    return constraints;
+}
 
 
 @end
