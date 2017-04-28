@@ -18,7 +18,11 @@
 
 
 @interface BookViewController ()
-@property(strong, nonatomic) UITextField   *nameField;
+
+@property(strong, nonatomic) UITextField *nameField;
+@property(strong, nonatomic) UITextField *firstName;
+@property(strong, nonatomic) UITextField *lastName;
+@property(strong, nonatomic) UITextField *emailAddress;
 @end
 
 @implementation BookViewController
@@ -26,9 +30,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
 }
 
+-(void)guestInfo
+{
+    self.firstName = [[UITextField alloc]init];
+    self.firstName.placeholder = @"First Name";
+    self.firstName.translatesAutoresizingMaskIntoConstraints = NO;
+    CGFloat navAndStatusBarHeight                            = CGRectGetHeight(self.navigationController.navigationBar.frame) + 20.0;
+    
+    NSLayoutConstraint *top                                  = [AutoLayout genericContraintFrom:self.firstName
+                                                                                         toView:self.view
+                                                                                  withAttribute: NSLayoutAttributeTop];
+    
+    top.constant                                             = navAndStatusBarHeight + 20;
+    
+    NSLayoutConstraint *leading                              = [AutoLayout leadingConstraintFrom:self.firstName
+                                                                                          toView:self.view];
+    leading.constant                                         = 20;
+    
+    NSLayoutConstraint *trailing                             = [AutoLayout trailingConstraintFrom:self.firstName
+                                                                                           toView:self.view];
+    trailing.constant                                        = -20;
+    
+    [self.firstName becomeFirstResponder];
+    
+    
+ }
 -(void)setNameField
 {
     self.nameField                                           = [[UITextField alloc] init];
@@ -82,6 +111,27 @@
         [self.navigationController popToRootViewControllerAnimated:YES];
 }
 }
+-(void)setupTextFields
+{
+    UITextField *firstName = [[UITextField alloc] init];
+    UITextField *lastName = [[UITextField alloc] init];
+    UITextField *emailAddress = [[UITextField alloc] init];
+    
+    [firstName setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [lastName setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [emailAddress setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    firstName.placeholder = @"First Name";
+    lastName.placeholder = @"Last Name";
+    emailAddress.placeholder = @"Email Address";
+    
+    [AutoLayout height:30 forView:firstName];
+    [AutoLayout height:30 forView:lastName];
+    [AutoLayout height:30 forView:emailAddress];
+    
+    
+    
+    
 
-
+}
 @end

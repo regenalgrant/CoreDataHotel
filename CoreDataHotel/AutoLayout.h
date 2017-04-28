@@ -35,8 +35,8 @@
 forView:(UIView *)view;
 
 +(NSLayoutConstraint *)topOffset:(CGFloat)offset
-                        fromView:(UIView *)view
-                          toView:(UIView *)otherView;
+                        fromView:(id)view
+                          toView:(id)otherView;
 
 +(NSLayoutConstraint *)genericContraintFrom:(id)view
                               withAttribute:(NSLayoutAttribute)thisAttribute
@@ -44,4 +44,15 @@ forView:(UIView *)view;
                               withAttribute:(NSLayoutAttribute)otherAttribute
                               andMultiplier:(CGFloat)multiplier;
 
++(NSLayoutConstraint *)topOffset:(CGFloat)offset
+                     fromViewTop:(id)view
+                    toViewBottom:(id)otherView;
+
++(NSLayoutConstraint *)offset:(CGFloat)offset
+                  fromViewBottom:(id)view
+                    toViewBottom:(id)otherView;
+
++(NSLayoutConstraint *)offset:(CGFloat)offset
+               fromViewBottom:(id)view
+                    toViewTop:(id)otherView;
 @end

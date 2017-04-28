@@ -14,6 +14,9 @@
 #import "Room+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
 #import "Hotel+CoreDataClass.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 
 @interface AppDelegate ()
@@ -31,6 +34,7 @@
     
     [self setupRootViewController];
     [self bootstrapApp];
+    [Fabric with:@[[Crashlytics class]]];
     
     return YES;
 }
@@ -96,6 +100,7 @@
 
 
 
+
 -(void)setupRootViewController {
     //[UIScreen mainScreen a singleton]//
     self.window                    = [[UIWindow alloc]initWithFrame: [[UIScreen mainScreen]bounds]];
@@ -103,8 +108,8 @@
     self.navController             = [[UINavigationController alloc]initWithRootViewController: self.viewController];
     self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
-    
-    
+
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
