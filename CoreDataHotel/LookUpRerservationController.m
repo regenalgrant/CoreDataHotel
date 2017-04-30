@@ -17,136 +17,160 @@
 #import "Room+CoreDataProperties.h"
 #import "AutoLayout.h"
 #import "AppDelegate.h"
+#import "ReservationCell.h"
 
 
-@interface LookUpRerservationController () <UITableViewDataSource, UITableViewDelegate>
+@interface LookUpRerservationController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) NSArray *reservationDetails;
-@property (strong, nonatomic) UITableView *setupViewLayout;
-@property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) NSArray *searchResult;
-@property (strong, nonatomic) NSMutableArray *filteredReservation;
+//@property(strong, nonatomic) UITableView *tableView;
+@property(strong, nonatomic) NSArray *reservationDetails;
+@property(strong, nonatomic) UISearchBar *searchBar;
+@property(strong, nonatomic) NSMutableArray *filteredReservation;
+@property (strong, nonatomic) NSArray *allReservations;
+@property (strong, nonatomic) UITableView *tableView;
 
 @end
 
 @implementation LookUpRerservationController
 
-BOOL isSearching;
-
--(NSArray *)reservationDetails
-{
-    if (!_reservationDetails)
-    {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
-        
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Reservation"];
-        
-        NSError *reservationError;
-        
-        NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
-        
-        NSArray *reservationDetails = [context
-                                       executeFetchRequest:request
-                                                     error:&reservationError];
-        
-        if (reservationError)
-        {
-            NSLog(@"There is a Reservation Fetch Error");
-        }
-        _reservationDetails = reservationDetails;
-        
-    }
-    return _reservationDetails;
-}
-
--(void)loadView
+- (void)loadView
 {
     [super loadView];
-    
-    [self setupViewLayout];
-    [self.tableView setBackgroundColor:[UIColor whiteColor]];
-    
-    
-     
-     [super loadView];
+    self.view.backgroundColor        = [UIColor whiteColor];
+    [self setupSearchBar];
+    [self setupTableView];
 }
--(void)viewDidLoad
+
+- (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.title        = @"Search Your Reservation";
+    self.tableView.dataSource        = self;
+    self.searchBar.delegate          = self;
+}
+
+- (NSArray *)allReservations
+{
+    if (!_allReservations) {
+    AppDelegate *appDelegate         = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context  = appDelegate.persistentContainer.viewContext;
+
+    NSFetchRequest *request          = [NSFetchRequest fetchRequestWithEntityName:@"Reservation"];
+
+        NSError *fetchError;
+    NSArray *reservations            = [context executeFetchRequest:request error:&fetchError];
+
+        if (fetchError) {
+            NSLog(@"There is an error fetching from core data");
+        } else {
+            NSLog(@"Fetch succeed!");
+        }
+    _allReservations                 = reservations;
+    }
+    return _allReservations;
+}
+
+- (void)setupSearchBar
+{
+    self.searchBar                   = [[UISearchBar alloc] init];
+
+    [self.view addSubview:self.searchBar];
+
+    [self.searchBar setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    self.searchBar.placeholder       = @"Enter first name, last name or email";
+
+    self.searchBar.showsCancelButton = YES;
+
+    [AutoLayout offset:0 forThisItemTop:self.searchBar
+      toThatItemBottom:self.topLayoutGuide];
+
+    [AutoLayout leadingConstraintFrom:self.searchBar
+                               toView:self.view];
+
+    [AutoLayout trailingConstraintFrom:self.searchBar
+                                toView:self.view];
+
+    [AutoLayout height:40 forView:self.searchBar];
+}
+
+- (void)setupTableView
+{
+    self.tableView                   = [[UITableView alloc] init];
+    [self.tableView registerClass:[Reservation class]
+           forCellReuseIdentifier:@"cell"];
+    [self.tableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+
+    [self.tableView setEstimatedRowHeight:100];
+
+    self.tableView.rowHeight         = UITableViewAutomaticDimension;
+
+    [self.view addSubview:self.tableView];
+
+    [AutoLayout leadingConstraintFrom:self.tableView
+                               toView:self.view];
+
+    [AutoLayout trailingConstraintFrom:self.tableView
+                                toView:self.view];
+
+    [AutoLayout bottomConstraintFrom:self.tableView
+                              toView:self.view];
+
+    [AutoLayout offset:0
+        forThisItemTop:self.tableView
+      toThatItemBottom:self.searchBar];
+}
+
+#pragma mark - UISearchBarDelegate
+-(void)searchBar:(UISearchBar *)searchBar
+   textDidChange:(NSString *)searchText
+{
+    self.filteredReservation         = [[NSMutableArray alloc]init];
+
+    self.filteredReservation         = [[self.allReservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS[c] %@ OR guest.firstName CONTAINS[c] %@ OR guest.email CONTAINS[c] %@", searchBar.text, searchBar.text, searchBar.text]] mutableCopy];
+    [self.tableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    searchBar.text                   = @"";
+    self.filteredReservation         = nil;
+    [self.tableView reloadData];
+    [searchBar resignFirstResponder];
+    NSLog(@"Cancel clicked");
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    if (searchBar.text != nil) {
+    self.filteredReservation         = [[NSMutableArray alloc]init];
+    self.filteredReservation         = [[self.allReservations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"guest.lastName CONTAINS[c] %@ OR guest.firstName CONTAINS[c] %@ OR guest.email CONTAINS[c] %@", searchBar.text, searchBar.text, searchBar.text]] mutableCopy];
+    }
+    NSLog(@"Search Clicked");
 }
 
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDelegate
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (self.filteredReservation != nil) {
+        return self.filteredReservation.count;
+    }
+    return self.allReservations.count;
+}
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
-//   return 1;
-//}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Reservation *cell                = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
-//
-//   return [lastName count];
-//}
+    Reservation *reservation;
+    if (self.filteredReservation == nil) {
+    reservation                      = self.allReservations[indexPath.row];
+    } else {
+    reservation                      = self.filteredReservation[indexPath.row];
+    }
+    cell.reservation                 = reservation;
 
-/*
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
- UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
- 
- // Configure the cell...
- 
- return cell;
- }
- */
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+    return cell;
+}
 
 @end
+

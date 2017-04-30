@@ -11,5 +11,6 @@
 
 @interface DatePickerViewController : UIViewController
 
+- (void)setupDatePickers;
 
 @end

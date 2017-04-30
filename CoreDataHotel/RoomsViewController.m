@@ -11,11 +11,15 @@
 #import "Room+CoreDataProperties.h"
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
+#import "Reservation+CoreDataClass.h"
+#import "Reservation+CoreDataProperties.h"
+#import "AutoLayout.h"
 
 @interface RoomsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic)UITableView *tableView;
 @property (strong, nonatomic)NSArray *rooms;
+@property (strong, nonatomic)NSMutableArray *roomNumbers;
 
 @end
 
@@ -24,33 +28,48 @@
 - (void)loadView
 {
     [super loadView];
-    self.tableView            = [[UITableView alloc]initWithFrame:self.view.bounds
-                                                 style:UITableViewStylePlain];
+    self.navigationItem.title = @"Rooms";
+    
     [self.view addSubview:self.tableView];
 
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.delegate   = self;
+    self.tableView.delegate = self;
     self.tableView.dataSource = self;
-
-    self.rooms                = [[self.selectedHotel rooms]allObjects];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    self.roomNumbers = [[NSMutableArray alloc] init];
+    self.rooms = [[self.selectedHotel rooms] allObjects];
+    for (Room *room in self.rooms) {
+        [self.roomNumbers addObject:[NSNumber numberWithUnsignedInteger:room.number]];
+    }
+    self.roomNumbers = [[self.roomNumbers sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
 }
+
+- (void)setupTableView
+{
+    self.tableView = [[UITableView alloc] init];
+    [self.view addSubview:self.tableView];
+    [self.tableView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [AutoLayout fullScreenContraintsWithVFLForView:self.view];
+}
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell     = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     Room *room                = self.rooms[indexPath.row];
     cell.textLabel.text       = [[NSNumber numberWithUnsignedInteger:room.number]stringValue];
+    
     return cell;
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.rooms count];
 }
+
 
 
 

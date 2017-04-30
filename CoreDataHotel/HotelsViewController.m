@@ -11,13 +11,14 @@
 #import "Hotel+CoreDataClass.h"
 #import "Hotel+CoreDataProperties.h"
 #import "RoomsViewController.h"
-
+#import "AutoLayout.h"
+#import "ViewController.h"
 
 @interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray     *allHotels;
-@property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) Hotel *selectedHotel;
+@property (strong, nonatomic) NSArray             *allHotels;
+@property (strong, nonatomic) UITableView         *tableView;
+@property (strong, nonatomic) Hotel               *selectedHotel;
 
 
 
@@ -37,6 +38,17 @@
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds
                                                  style:UITableViewStylePlain];
     
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [AutoLayout fullScreenContraintsWithVFLForView:self.tableView];
+    
+   // [self setupLayout];
+    
     [self.view addSubview:self.tableView];
 
     
@@ -48,7 +60,13 @@
     [super viewDidLoad];
     self.tableView.delegate         = self;
     self.tableView.dataSource       = self;
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerClass:[UITableViewCell class]
+           forCellReuseIdentifier:@"cell"];
+    
+    [self.view addSubview:self.tableView];
+    
+    [AutoLayout fullScreenContraintsWithVFLForView:self.tableView];
+    
     
 }
 
@@ -80,12 +98,18 @@
 {
     RoomsViewController *roomVC     = [[RoomsViewController alloc] init];
     roomVC.selectedHotel            = self.allHotels[indexPath.row];
+    
     [self.navigationController pushViewController:roomVC animated:YES];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell           = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    UITableViewCell *cell           = [tableView dequeueReusableCellWithIdentifier:@"cell"
+                                                                      forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+    }
+    
     Hotel *hotel                    = self.allHotels[indexPath.row];
     cell.textLabel.text             = hotel.name;
     
@@ -97,7 +121,11 @@
     //or self.allHotels//
     return [self.allHotels count];
 }
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                      context:(void *)context
+{
     if ([keyPath isEqualToString:@"Rooms"])
 {
         [self.tableView reloadData];

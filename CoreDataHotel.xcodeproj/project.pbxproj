@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05D2EA401EB5AA12009A9FEE /* ReservationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D2EA3F1EB5AA12009A9FEE /* ReservationCell.m */; };
 		99723E651EB1738800F9F2A9 /* LookUpRerservationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99723E641EB1738800F9F2A9 /* LookUpRerservationController.m */; };
 		99A9A8161EB2607000E845B0 /* MappingModel1.0-1.1.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 99A9A8151EB2607000E845B0 /* MappingModel1.0-1.1.xcmappingmodel */; };
 		99A9A81A1EB26E9600E845B0 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A9A8181EB26E9600E845B0 /* Fabric.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05D2EA3E1EB5AA12009A9FEE /* ReservationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationCell.h; sourceTree = "<group>"; };
+		05D2EA3F1EB5AA12009A9FEE /* ReservationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationCell.m; sourceTree = "<group>"; };
 		99723E631EB1738800F9F2A9 /* LookUpRerservationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LookUpRerservationController.h; sourceTree = "<group>"; };
 		99723E641EB1738800F9F2A9 /* LookUpRerservationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LookUpRerservationController.m; sourceTree = "<group>"; };
 		99A9A8141EB25DB400E845B0 /* CoreDataHotel1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataHotel1.1.xcdatamodel; sourceTree = "<group>"; };
@@ -167,6 +170,8 @@
 				99DA8C241EAE5F6E0074D7E4 /* ViewController.m */,
 				99723E631EB1738800F9F2A9 /* LookUpRerservationController.h */,
 				99723E641EB1738800F9F2A9 /* LookUpRerservationController.m */,
+				05D2EA3E1EB5AA12009A9FEE /* ReservationCell.h */,
+				05D2EA3F1EB5AA12009A9FEE /* ReservationCell.m */,
 				99DA8C471EAFBC780074D7E4 /* DatePickerViewController.h */,
 				99DA8C481EAFBC780074D7E4 /* DatePickerViewController.m */,
 				99DA8C4A1EAFCF980074D7E4 /* AvailabilityViewController.h */,
@@ -316,6 +321,7 @@
 				99723E651EB1738800F9F2A9 /* LookUpRerservationController.m in Sources */,
 				99DA8C461EAF04C30074D7E4 /* RoomsViewController.m in Sources */,
 				99A9A8161EB2607000E845B0 /* MappingModel1.0-1.1.xcmappingmodel in Sources */,
+				05D2EA401EB5AA12009A9FEE /* ReservationCell.m in Sources */,
 				99DA8C1F1EAE5F6E0074D7E4 /* main.m in Sources */,
 				99DA8C391EAE6D2E0074D7E4 /* AutoLayout.m in Sources */,
 			);
