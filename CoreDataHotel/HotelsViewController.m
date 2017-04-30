@@ -96,22 +96,22 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RoomsViewController *roomVC     = [[RoomsViewController alloc] init];
-    roomVC.selectedHotel            = self.allHotels[indexPath.row];
+    RoomsViewController *roomVC = [[RoomsViewController alloc] init];
+    roomVC.selectedHotel        = self.allHotels[indexPath.row];
     
     [self.navigationController pushViewController:roomVC animated:YES];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell           = [tableView dequeueReusableCellWithIdentifier:@"cell"
-                                                                      forIndexPath:indexPath];
+    UITableViewCell *cell       = [tableView dequeueReusableCellWithIdentifier:@"cell"
+                                                                  forIndexPath:indexPath];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell                        = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
     
-    Hotel *hotel                    = self.allHotels[indexPath.row];
-    cell.textLabel.text             = hotel.name;
+    Hotel *hotel                = self.allHotels[indexPath.row];
+    cell.textLabel.text         = hotel.name;
     
     return cell;
 }
@@ -127,9 +127,9 @@
                       context:(void *)context
 {
     if ([keyPath isEqualToString:@"Rooms"])
-{
+    {
         [self.tableView reloadData];
-}
+    }
 }
 
 

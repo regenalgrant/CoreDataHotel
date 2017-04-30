@@ -43,7 +43,7 @@
     NSLayoutConstraint *top                                  = [AutoLayout genericContraintFrom:self.firstName
                                                                                          toView:self.view
                                                                                   withAttribute: NSLayoutAttributeTop];
-    
+
     top.constant                                             = navAndStatusBarHeight + 20;
     
     NSLayoutConstraint *leading                              = [AutoLayout leadingConstraintFrom:self.firstName
@@ -69,17 +69,17 @@
     CGFloat navAndStatusBarHeight                            = CGRectGetHeight(self.navigationController.navigationBar.frame) + 20.0;
 
     NSLayoutConstraint *top                                  = [AutoLayout genericContraintFrom:self.nameField
-                                                                                    toView:self.view
-                                                                             withAttribute: NSLayoutAttributeTop];
+                                                                                         toView:self.view
+                                                                                  withAttribute: NSLayoutAttributeTop];
 
     top.constant                                             = navAndStatusBarHeight + 20;
 
     NSLayoutConstraint *leading                              = [AutoLayout leadingConstraintFrom:self.nameField
-                                                                                     toView:self.view];
+                                                                                          toView:self.view];
     leading.constant                                         = 20;
 
     NSLayoutConstraint *trailing                             = [AutoLayout trailingConstraintFrom:self.nameField
-                                                                                      toView:self.view];
+                                                                                           toView:self.view];
     trailing.constant                                        = -20;
 
     [self.nameField becomeFirstResponder];
@@ -88,15 +88,16 @@
 
 -(void)saveButtonSelected:(UIBarButtonItem *)sender
 {
-    AppDelegate *appDelegate                                 = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context                          = appDelegate.persistentContainer.viewContext;
+    AppDelegate *appDelegate        = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.persistentContainer.viewContext;
 
-    Reservation *reservation                                 = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation" inManagedObjectContext:context];
-    reservation.startDate                                    = self.startDate;
-    reservation.endDate                                      = self.endDate;
-    reservation.room                                         = self.room;
-
-    reservation.guest                                        = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
+    Reservation *reservation        = [NSEntityDescription insertNewObjectForEntityForName:@"Reservation"
+                 inManagedObjectContext:context];
+    
+    reservation.startDate           = self.startDate;
+    reservation.endDate             = self.endDate;
+    reservation.room                = self.room;
+    reservation.guest               = [NSEntityDescription insertNewObjectForEntityForName:@"Guest" inManagedObjectContext:context];
     reservation.guest.name                                   = self.nameField.text;
 
     NSError *saveError;
@@ -113,18 +114,18 @@
 }
 -(void)setupTextFields
 {
-    UITextField *firstName = [[UITextField alloc] init];
-    UITextField *lastName = [[UITextField alloc] init];
+    UITextField *firstName    = [[UITextField alloc] init];
+    UITextField *lastName     = [[UITextField alloc] init];
     UITextField *emailAddress = [[UITextField alloc] init];
-    
+
     [firstName setTranslatesAutoresizingMaskIntoConstraints:NO];
     [lastName setTranslatesAutoresizingMaskIntoConstraints:NO];
     [emailAddress setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    firstName.placeholder = @"First Name";
-    lastName.placeholder = @"Last Name";
-    emailAddress.placeholder = @"Email Address";
-    
+
+    firstName.placeholder     = @"First Name";
+    lastName.placeholder      = @"Last Name";
+    emailAddress.placeholder  = @"Email Address";
+
     [AutoLayout height:30 forView:firstName];
     [AutoLayout height:30 forView:lastName];
     [AutoLayout height:30 forView:emailAddress];

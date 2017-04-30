@@ -36,7 +36,7 @@
 
 -(void)setupDoneButton
 {
-    UIBarButtonItem *doneButton                        = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                target:self
                                                                                action:@selector(doneButtonPressed)];
 
@@ -96,16 +96,31 @@
     [self.endDate setTranslatesAutoresizingMaskIntoConstraints:NO];
     
     // layout
-    [AutoLayout leadingConstraintFrom:self.startDate toView:self.view];
-    [AutoLayout trailingConstraintFrom:self.startDate toView:self.view];
-    [AutoLayout leadingConstraintFrom:self.endDate toView:self.view];
-    [AutoLayout trailingConstraintFrom:self.endDate toView:self.view];
+    [AutoLayout leadingConstraintFrom:self.startDate
+                               toView:self.view];
     
-    [AutoLayout equalHeightConstraintFrom:self.startDate toView:self.endDate withMultiplier:1.0];
-    [AutoLayout topOffset:30 fromViewTop:self.startDate toViewBottom:self.topLayoutGuide];
+    [AutoLayout trailingConstraintFrom:self.startDate
+                                toView:self.view];
     
-   // [AutoLayout offset:0 fromViewBottom:self.endDate toViewBottom:self.view];
-   // [AutoLayout offset:-30 fromViewBottom:self.startDate toViewTop:self.endDate];
+    [AutoLayout leadingConstraintFrom:self.endDate
+                               toView:self.view];
+    
+    [AutoLayout trailingConstraintFrom:self.endDate
+                                toView:self.view];
+    
+    [AutoLayout equalHeightConstraintFrom:self.startDate
+                                   toView:self.endDate
+                           withMultiplier:1.0];
+    
+    [AutoLayout topOffset:30 fromViewTop:self.startDate
+                            toViewBottom:self.topLayoutGuide];
+    
+   // [AutoLayout offset:0
+//fromViewBottom:self.endDate
+//toViewBottom:self.view];
+   // [AutoLayout offset:-30
+//fromViewBottom:self.startDate
+//toViewTop:self.endDate];
     
 }
 

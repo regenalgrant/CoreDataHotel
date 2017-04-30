@@ -36,9 +36,9 @@
     self.view.backgroundColor                 = [UIColor whiteColor];
     self.navigationItem.title                 = @"Hotel Manager";
     self.navigationItem.backBarButtonItem     = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
+                                                                                 style:UIBarButtonItemStylePlain
+                                                                                target:nil
+                                                                                action:nil];
     [self setupButtons];
 }
 
@@ -82,37 +82,37 @@
     [AutoLayout offset:0.0
         forThisItemTop:self.browseButton
       toThatItemBottom:self.topLayoutGuide];
-    
+
     [AutoLayout leadingConstraintFrom:self.browseButton
                                toView:self.view];
-    
+
     [AutoLayout trailingConstraintFrom:self.browseButton
                                 toView:self.view];
-    
+
     [AutoLayout equalHeightConstraintFrom:self.bookButton toView:self.browseButton withMultiplier:10];
-    
+
     [AutoLayout leadingConstraintFrom:self.bookButton
                                toView:self.view];
-    
+
     [AutoLayout trailingConstraintFrom:self.bookButton
                                 toView:self.view];
-    
+
     [AutoLayout offset:0.0
         forThisItemTop:self.bookButton
       toThatItemBottom:self.browseButton];
-    
+
     [AutoLayout equalHeightConstraintFrom:self.lookupButton toView:self.browseButton withMultiplier:1.0];
-    
-     
+
+
     [AutoLayout leadingConstraintFrom:self.lookupButton
                                toView:self.view];
-    
+
     [AutoLayout trailingConstraintFrom:self.lookupButton
                                 toView:self.view];
-    
+
     [AutoLayout offset:0.0 forThisItemTop: self.lookupButton
       toThatItemBottom:self.bookButton];
-    
+
     [AutoLayout bottomConstraintFrom:self.lookupButton
                               toView:self.view];
 }
@@ -149,14 +149,14 @@
 
 - (UIButton *)createButtonWithTitle:(NSString *)title
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    
+    UIButton *button                          = [UIButton buttonWithType:UIButtonTypeSystem];
+
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blueColor]
                  forState:UIControlStateNormal];
-    
+
     [button setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
+
     [self.view addSubview:button];
     return button;
 }

@@ -17,9 +17,9 @@
 
 @interface RoomsViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic)UITableView *tableView;
-@property (strong, nonatomic)NSArray *rooms;
-@property (strong, nonatomic)NSMutableArray *roomNumbers;
+@property (strong, nonatomic) UITableView    *tableView;
+@property (strong, nonatomic) NSArray        *rooms;
+@property (strong, nonatomic) NSMutableArray *roomNumbers;
 
 @end
 
@@ -28,6 +28,7 @@
 - (void)loadView
 {
     [super loadView];
+    
     self.navigationItem.title = @"Rooms";
     
     [self.view addSubview:self.tableView];
@@ -36,19 +37,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.delegate = self;
+    
+    self.tableView.delegate   = self;
     self.tableView.dataSource = self;
-    self.roomNumbers = [[NSMutableArray alloc] init];
-    self.rooms = [[self.selectedHotel rooms] allObjects];
+    self.roomNumbers          = [[NSMutableArray alloc] init];
+    self.rooms                = [[self.selectedHotel rooms] allObjects];
+    
     for (Room *room in self.rooms) {
         [self.roomNumbers addObject:[NSNumber numberWithUnsignedInteger:room.number]];
     }
-    self.roomNumbers = [[self.roomNumbers sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
+    self.roomNumbers          = [[self.roomNumbers sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
 }
 
 - (void)setupTableView
 {
-    self.tableView = [[UITableView alloc] init];
+    self.tableView            = [[UITableView alloc] init];
     [self.view addSubview:self.tableView];
     [self.tableView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
@@ -56,7 +59,8 @@
 }
 
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell     = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     Room *room                = self.rooms[indexPath.row];
