@@ -82,37 +82,42 @@
     [AutoLayout offset:0.0
         forThisItemTop:self.browseButton
       toThatItemBottom:self.topLayoutGuide];
-
+    
     [AutoLayout leadingConstraintFrom:self.browseButton
                                toView:self.view];
-
+    
     [AutoLayout trailingConstraintFrom:self.browseButton
                                 toView:self.view];
-
-    [AutoLayout equalHeightConstraintFrom:self.bookButton toView:self.browseButton withMultiplier:10];
-
+    
+    [AutoLayout equalHeightConstraintFrom:self.bookButton
+                                   toView:self.browseButton
+                           withMultiplier:10];
+    
     [AutoLayout leadingConstraintFrom:self.bookButton
                                toView:self.view];
-
+    
     [AutoLayout trailingConstraintFrom:self.bookButton
                                 toView:self.view];
-
+    
     [AutoLayout offset:0.0
         forThisItemTop:self.bookButton
       toThatItemBottom:self.browseButton];
-
-    [AutoLayout equalHeightConstraintFrom:self.lookupButton toView:self.browseButton withMultiplier:1.0];
-
-
+    
+    [AutoLayout equalHeightConstraintFrom:self.lookupButton
+                                   toView:self.browseButton
+                           withMultiplier:1.0];
+    
+    
     [AutoLayout leadingConstraintFrom:self.lookupButton
                                toView:self.view];
-
+    
     [AutoLayout trailingConstraintFrom:self.lookupButton
                                 toView:self.view];
-
-    [AutoLayout offset:0.0 forThisItemTop: self.lookupButton
+    
+    [AutoLayout offset:0.0
+        forThisItemTop: self.lookupButton
       toThatItemBottom:self.bookButton];
-
+    
     [AutoLayout bottomConstraintFrom:self.lookupButton
                               toView:self.view];
 }
