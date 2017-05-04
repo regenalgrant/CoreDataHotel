@@ -27,92 +27,76 @@
 
 @implementation ReservationCell
 
-- (void)setReservation:(Reservation *)reservation
-{
-
-    _reservation         = reservation;
-
-    _nameLabel           = [[UILabel alloc] init];
+- (void)setReservation:(Reservation *)reservation {
+    
+    
+    _reservation = reservation;
+    
+    _nameLabel = [[UILabel alloc] init];
+    
     [self addSubview:_nameLabel];
+    
     [_nameLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [AutoLayout offset:8
-        forThisItemTop:self.nameLabel
-         toThatItemTop:self];
-
-    [AutoLayout offset:8
-    forThisItemLeading:self.nameLabel
-     toThatItemLeading:self];
-
-    [AutoLayout offset:8
-   forThisItemTrailing:self.nameLabel
-    toThatItemTrailing:self];
-
-    [AutoLayout height:20
-               forView:self.nameLabel];
-
-    _hotelLabel          = [[UILabel alloc] init];
+    
+    [AutoLayout offset:8 forThisItemTop:self.nameLabel toThatItemTop:self];
+    
+    [AutoLayout offset:8 forThisItemLeading:self.nameLabel toThatItemLeading:self];
+    
+    [AutoLayout offset:8 forThisItemTrailing:self.nameLabel toThatItemTrailing:self];
+    
+    [AutoLayout height:20 forView:self.nameLabel];
+    
+    
+    _hotelLabel = [[UILabel alloc] init];
+    
     [self addSubview:_hotelLabel];
+    
     [self.hotelLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [AutoLayout offset:8
-        forThisItemTop:self.hotelLabel
-      toThatItemBottom:self.nameLabel];
-
-    [AutoLayout offset:8
-    forThisItemLeading:self.hotelLabel
-     toThatItemLeading:self];
-
-    [AutoLayout offset:8
-   forThisItemTrailing:self.hotelLabel
-    toThatItemTrailing:self];
-
-    [AutoLayout height:20
-               forView:self.hotelLabel];
-
-
-    self.roomLabel       = [[UILabel alloc] init];
+    
+    [AutoLayout offset:8 forThisItemTop:self.hotelLabel toThatItemBottom:self.nameLabel];
+    
+    [AutoLayout offset:8 forThisItemLeading:self.hotelLabel toThatItemLeading:self];
+    
+    [AutoLayout offset:8 forThisItemTrailing:self.hotelLabel toThatItemTrailing:self];
+    
+    [AutoLayout height:20 forView:self.hotelLabel];
+    
+    
+    self.roomLabel = [[UILabel alloc] init];
+    
     [self addSubview:self.roomLabel];
+    
     [self.roomLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [AutoLayout offset:8
-        forThisItemTop:self.roomLabel
-      toThatItemBottom:self.hotelLabel];
-
-    [AutoLayout offset:8
-    forThisItemLeading:self.roomLabel
-     toThatItemLeading:self];
-    [AutoLayout offset:8
-   forThisItemTrailing:self.roomLabel
-    toThatItemTrailing:self];
-
+    
+    [AutoLayout offset:8 forThisItemTop:self.roomLabel toThatItemBottom:self.hotelLabel];
+    
+    [AutoLayout offset:8 forThisItemLeading:self.roomLabel toThatItemLeading:self];
+    
+    [AutoLayout offset:8 forThisItemTrailing:self.roomLabel toThatItemTrailing:self];
+    
     [AutoLayout height:20 forView:self.roomLabel];
-    [AutoLayout offset:-8
-     forThisItemBottom:self.roomLabel
-      toThatItemBottom:self];
-
-
-    self.nameLabel.text  = [NSString stringWithFormat:@"%@ %@",
-                            [self.reservation guest].firstName,
-                            [self.reservation guest].lastName];
-
-    self.hotelLabel.text = [NSString stringWithFormat:@"Hotel: %@",
-                            [[self.reservation room] hotel].name];
-
-    self.roomLabel.text  = [NSString stringWithFormat:@"Room: %i",
-                            [self.reservation room].number];
+    
+    [AutoLayout offset:-8 forThisItemBottom:self.roomLabel toThatItemBottom:self];
+    
+    
+    self.nameLabel.text  = [NSString stringWithFormat:@"%@ %@", [self.reservation guest].firstName, [self.reservation guest].lastName];
+    
+    self.hotelLabel.text = [NSString stringWithFormat:@"Hotel: %@", [[self.reservation room] hotel].name];
+    
+    self.roomLabel.text  = [NSString stringWithFormat:@"Room: %i", [self.reservation room].number];
 }
 
-- (void)prepareForReuse
-{
-    self.nameLabel       = nil;
-    self.hotelLabel      = nil;
-    self.roomLabel       = nil;
+- (void)prepareForReuse {
+    self.nameLabel  = nil;
+    self.hotelLabel = nil;
+    self.roomLabel  = nil;
 }
 
 - (void)setSelected:(BOOL)
-selected animated:(BOOL)animated
-{
+selected animated:(BOOL)animated {
     [super setSelected:selected
               animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

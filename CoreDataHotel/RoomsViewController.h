@@ -11,6 +11,7 @@
 #import "Hotel+CoreDataClass.h"
 
 @interface RoomsViewController : UIViewController
+
 @property (strong, nonatomic)Hotel *selectedHotel;
 
 @end

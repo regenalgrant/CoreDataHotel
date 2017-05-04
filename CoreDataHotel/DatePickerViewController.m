@@ -24,73 +24,70 @@
 @implementation DatePickerViewController
 
 
--(void)loadView
-{
+-(void)loadView {
     [super loadView];
     [self setupDoneButton];
     [self setupDatePickers];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-
+    
 }
 
 
--(void)setupDoneButton
-{
+-(void)setupDoneButton {
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                target:self
                                                                                action:@selector(doneButtonPressed)];
-
+    
     [self.navigationItem setRightBarButtonItem:doneButton];
 }
 
 
 
--(void) setupLabel
-{
+-(void) setupLabel {
     
-
-    UILabel *startDateLabel        = [[UILabel alloc] init];
-    UILabel *endDateLabel          = [[UILabel alloc] init];
-
+    
+    UILabel *startDateLabel = [[UILabel alloc] init];
+    UILabel *endDateLabel   = [[UILabel alloc] init];
+    
     [self.startDateLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.endDateLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-
+    
     startDateLabel.text            = @"Start Date";
     startDateLabel.backgroundColor = [UIColor clearColor];
     startDateLabel.textAlignment   = NSTextAlignmentCenter;
     startDateLabel.textColor       = [UIColor whiteColor];
     startDateLabel.numberOfLines   = 0;
-
+    
     endDateLabel.text              = @"End Date";
     endDateLabel.backgroundColor   = [UIColor clearColor];
     endDateLabel.textAlignment     = NSTextAlignmentCenter;
     endDateLabel.textColor         = [UIColor whiteColor];
     endDateLabel.numberOfLines     = 0;
-
-
-
+    
+    
+    
     [self.view addSubview:self.startDateLabel];
     [self.view addSubview:self.endDateLabel];
-
+    
 }
 
--(void)setupDatePickers
-{
+-(void)setupDatePickers {
+    
     self.startDate  =[[UIDatePicker alloc]init];
-    self.startDate.datePickerMode                      = UIDatePickerModeDate;
-
+    self.startDate.datePickerMode = UIDatePickerModeDate;
+    
     self.startDateLabel.backgroundColor = [UIColor greenColor];
-
-    self.endDate                                       = [[UIDatePicker alloc]init];
-    self.endDate.datePickerMode                        = UIDatePickerModeDate;
-
-
+    
+    self.endDate = [[UIDatePicker alloc]init];
+    self.endDate.datePickerMode = UIDatePickerModeDate;
+    
+    
     self.startDate.backgroundColor = [UIColor redColor];
     self.endDate.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.startDate];
     [self.view addSubview:self.endDate];
     
-
+    
     
     [self.startDate setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.endDate setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -113,39 +110,37 @@
                            withMultiplier:1.0];
     
     [AutoLayout topOffset:30 fromViewTop:self.startDate
-                            toViewBottom:self.topLayoutGuide];
+             toViewBottom:self.topLayoutGuide];
     
-   // [AutoLayout offset:0
-//fromViewBottom:self.endDate
-//toViewBottom:self.view];
-   // [AutoLayout offset:-30
-//fromViewBottom:self.startDate
-//toViewTop:self.endDate];
+    // [AutoLayout offset:0
+    //fromViewBottom:self.endDate
+    //toViewBottom:self.view];
+    // [AutoLayout offset:-30
+    //fromViewBottom:self.startDate
+    //toViewTop:self.endDate];
     
 }
 
 //check date is correct//
 
 
--(void)doneButtonPressed
-{
-    NSDate *startDate                                  = self.startDate.date;
-    NSDate *endDate                                    = self.endDate.date;
+-(void)doneButtonPressed {
+    NSDate *startDate = self.startDate.date;
+    NSDate *endDate = self.endDate.date;
     
-    if ([[NSDate date] timeIntervalSinceReferenceDate] > [endDate timeIntervalSinceReferenceDate]){
-        self.endDate.date                                  = [NSDate date];
+    if ([[NSDate date] timeIntervalSinceReferenceDate] > [endDate timeIntervalSinceReferenceDate]) {
+        self.endDate.date = [NSDate date];
         return;
         
     }
     
     AvailabilityViewController *availabilityController = [[AvailabilityViewController alloc] init];
-    availabilityController.endDate                     = endDate;
-    availabilityController.startDate                   = startDate;
+    availabilityController.endDate = endDate;
+    availabilityController.startDate = startDate;
     [self.navigationController pushViewController:availabilityController animated: YES];
     
-    if ([[NSDate date] timeIntervalSinceReferenceDate] > [startDate timeIntervalSinceReferenceDate])
-    {
-        self.startDate.date                                = [NSDate date];
+    if ([[NSDate date] timeIntervalSinceReferenceDate] > [startDate timeIntervalSinceReferenceDate]) {
+        self.startDate.date = [NSDate date];
         return;
     }
 }
